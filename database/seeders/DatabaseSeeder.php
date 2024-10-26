@@ -2,9 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Enum\RoleEnum;
+use App\Models\Department;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,11 +16,37 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
 
-        User::factory()->create([
+        Department::insert(
+            [
+                [
+                    'name' => 'RND',
+
+                ],
+                [
+                    'name' => 'HR',
+
+                ],
+                [
+                    'name' => 'Finance',
+
+                ]
+            ]
+        );
+
+        foreach(RoleEnum::cases() as $role){
+            Role::create(['name' => $role->value, 'guard_name' => 'web']);
+        }
+
+
+        User::factory(10)->create();
+
+        $user = User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
+
+
+        $user->assignRole(RoleEnum::SUPER_ADMIN->value);
     }
 }
