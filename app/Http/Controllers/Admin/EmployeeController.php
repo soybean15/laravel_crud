@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\EmployeeRequest;
 use App\Models\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,6 +28,17 @@ class EmployeeController extends Controller
             'user'=>Auth::user(),
             'employee'=>$employee
         ]);
+
+    }
+
+    public function update(EmployeeRequest $request,Employee $employee){
+
+
+
+        $employee->update($request->all());
+
+        return redirect()->route('admin.employee',['employee'=>$employee]);
+
 
     }
 

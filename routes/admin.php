@@ -18,6 +18,8 @@ Route::prefix('/')->group(function () {
 
         Route::get('/', [EmployeeController::class, 'index'])->name('admin.employees');
         Route::get('/{employee}', [EmployeeController::class, 'show'])->name('admin.employee');
+        Route::post('update/{employee}', [EmployeeController::class, 'update'])->name('admin.update-employee');
+
 
     });
 });
