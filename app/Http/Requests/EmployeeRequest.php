@@ -28,9 +28,6 @@ class EmployeeRequest extends FormRequest
             "gender" => "required",
             "birth_date" => "required|date",
             "status" => "required",
-
-
-
         ];
     }
 }

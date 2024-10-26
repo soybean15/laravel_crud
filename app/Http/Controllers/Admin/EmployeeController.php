@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Auth;
 class EmployeeController extends Controller
 {
     public function index(Request $request){
-
         $query = $request->input('query');
         $employees = Employee::search($query)
         ->paginate(5);
@@ -21,9 +20,7 @@ class EmployeeController extends Controller
         ]);
     }
 
-
     public function show(Employee $employee){
-
         return view('admin.employee-profile',[
             'user'=>Auth::user(),
             'employee'=>$employee
@@ -32,15 +29,18 @@ class EmployeeController extends Controller
     }
 
     public function update(EmployeeRequest $request,Employee $employee){
-
-
-
         $employee->update($request->all());
-
         return redirect()->route('admin.employee',['employee'=>$employee]);
 
+    }
+    public function destroy(Employee $employee){
+
+
+        $employee->delete();
+        return redirect()->route('admin.employees');
 
     }
+
 
 
 }

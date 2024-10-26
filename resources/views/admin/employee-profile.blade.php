@@ -34,20 +34,15 @@
                                    [ 'value'=>'male','label'=>'Male'],
                                    [ 'value'=>'female','label'=>'Female'],
                                    [ 'value'=>'others','label'=>'others']
-
-
                                 ]" />
-
                             <x-input type='date' value='{{ $employee->birth_date }}' attribute='birth_date'
                                 label="Birthdate" />
 
                             <x-select value='{{ $employee->status }}' attribute='status' label="Status" :options="
                                 [
-                                [ 'value'=>'active','label'=>'Active'],
-                                [ 'value'=>'awol','label'=>'AWOL'],
-                                [ 'value'=>'inactive','label'=>'Inactive']
-
-
+                                    [ 'value'=>'active','label'=>'Active'],
+                                    [ 'value'=>'awol','label'=>'AWOL'],
+                                    [ 'value'=>'inactive','label'=>'Inactive']
                                 ]" />
 
 
