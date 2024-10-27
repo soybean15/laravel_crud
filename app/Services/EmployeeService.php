@@ -6,13 +6,14 @@ use App\Helpers\IdGenerator;
 use App\Models\Department;
 use App\Models\Employee;
 use App\Providers\EmployeeServiceProvider;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class EmployeeService{
 
 
     protected $perPage = 5;
 
-    public function getEmployees($search){
+    public function getEmployees($search): LengthAwarePaginator {
 
        return Employee::search($search)
         ->paginate($this->perPage);
@@ -32,9 +33,11 @@ class EmployeeService{
 
     }
 
-    public function update($employee, $data){
+    public function update($employee_id, $data){
 
 
+
+        $employee= Employee::find($employee_id);
 
         $employee->update($data);
         return $employee;

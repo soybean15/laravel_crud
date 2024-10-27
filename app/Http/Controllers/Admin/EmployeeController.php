@@ -45,13 +45,18 @@ class EmployeeController extends Controller
 
     }
 
-    public function update(EmployeeService $service,EmployeeRequest $request,Employee $employee){
-        $service->update($employee,$request->all());
+    public function update(EmployeeService $service,EmployeeRequest $request){
+
+        $employee_id = $request->input('employee_id');
+        $employee = $service->update($employee_id,$request->all());
         return redirect()->route('admin.employee',['employee'=>$employee])
         ->with('success_message','Employee Updated!');
 
     }
-    public function destroy(Employee $employee){
+    public function destroy(Request $request){
+        $employee_id = $request->input('employee_id');
+
+        $employee = Employee::find($employee_id);
         $employee->delete();
         return redirect()->route('admin.employees')
         ->with('success_message','Employee Deleted!');;

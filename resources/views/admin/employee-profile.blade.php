@@ -1,7 +1,17 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="text-xl font-semibold leading-tight text-gray-800">
-            {{ __("Welcome $user->name") }}
+            <x-bread-crumbs :routes="[
+            [
+                'name'=>'admin.dashboard','label'=>'Dashboard'
+        ],
+        [
+                'name'=>'admin.employees','label'=>'Employees'
+        ],
+        [
+                'name'=>null,'label'=>'Profile'
+        ],
+         ]"/>
         </h2>
     </x-slot>
 
@@ -17,10 +27,11 @@
 
 
                 <div class="p-6 ">
-                    <form action="{{ route('admin.update-employee', $employee->id) }}" method="POST">
+                    <form action="{{ route('admin.update-employee')}}" method="POST">
                         @csrf
                         <!-- This generates the CSRF token -->
                         @method('POST')
+                        <input type="hidden" name="employee_id" value="{{ $employee->id }}">
                         <!-- Since you are using POST in your route -->
                         <div class="grid grid-cols-2 gap-4 md:grid-cols-2">
                             <x-input type='text' value='{{ $employee->first_name }}' attribute='first_name'

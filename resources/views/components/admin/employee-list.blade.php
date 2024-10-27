@@ -85,10 +85,13 @@
                     </td>
                     <td class="px-6 py-4 text-right">
 
-                        <form action="{{ route('admin.destroy-employee', ['employee' => $employee->id]) }}"
+                        <form action="{{ route('admin.destroy-employee') }}"
                             method="POST" class="mt-4" onsubmit="return confirmDelete()">
                             @csrf
                             @method('DELETE')
+
+                        <input type="hidden" name="employee_id" value="{{ $employee->id }}">
+
                             <!-- Simulate a DELETE request -->
                             <button type="submit"
                                 class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</button>

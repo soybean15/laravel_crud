@@ -1,7 +1,15 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="text-xl font-semibold leading-tight text-gray-800">
-            {{ __("Welcome $user->name") }}
+         <x-bread-crumbs :routes="[
+            [
+                'name'=>'admin.dashboard','label'=>'Dashboard'
+        ],
+        [
+                'name'=>'admin.employees','label'=>'Employees'
+        ],
+
+         ]"/>
         </h2>
     </x-slot>
 

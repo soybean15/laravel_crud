@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Services\EmployeeService;
 use App\View\Components\Admin\EmployeeList;
+use App\View\Components\BreadCrumbs;
 use App\View\Components\CustomInput;
 use App\View\Components\CustomSelect;
 use Illuminate\Support\Facades\Blade;
@@ -32,6 +33,8 @@ class AppServiceProvider extends ServiceProvider
 
         Blade::component('input', CustomInput::class);
         Blade::component('select', CustomSelect::class);
+        Blade::component('bread-crumbs', BreadCrumbs::class);
+
 
 
     }
