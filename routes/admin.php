@@ -20,6 +20,8 @@ Route::prefix('/')->group(function () {
         Route::get('/{employee}', [EmployeeController::class, 'show'])->name('admin.employee');
         Route::post('update/{employee}', [EmployeeController::class, 'update'])->name('admin.update-employee');
         Route::delete('destroy/{employee}', [EmployeeController::class, 'destroy'])->name('admin.destroy-employee');
+        Route::post('store', [EmployeeController::class, 'store'])->name('admin.store-employee');
+
 
 
 

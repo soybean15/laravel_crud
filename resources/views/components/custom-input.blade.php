@@ -5,5 +5,6 @@
         @error($attribute)
             <div class="text-sm text-red-500">{{ $message }}</div>
         @enderror
+        <div class="text-sm text-red-500"></div>
     </div>
 </div>

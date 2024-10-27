@@ -28,14 +28,24 @@ class EmployeeController extends Controller
 
     }
 
+    public function store(EmployeeRequest $request){
+
+        $employee =Employee::create($request->all());
+        if ($employee) {
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false], 500);
+        }
+
+
+    }
+
     public function update(EmployeeRequest $request,Employee $employee){
         $employee->update($request->all());
         return redirect()->route('admin.employee',['employee'=>$employee]);
 
     }
     public function destroy(Employee $employee){
-
-
         $employee->delete();
         return redirect()->route('admin.employees');
 

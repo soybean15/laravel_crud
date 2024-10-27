@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\View\Components\Admin\AddEmployeeModal;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
 class EmployeeServiceProvider extends ServiceProvider
@@ -23,5 +25,6 @@ class EmployeeServiceProvider extends ServiceProvider
     public function boot(): void
     {
         //
+        Blade::component(AddEmployeeModal::class,'add-employee');
     }
 }
