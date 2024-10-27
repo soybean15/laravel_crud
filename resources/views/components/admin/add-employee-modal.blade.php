@@ -39,7 +39,8 @@
                                            [ 'value'=>'male','label'=>'Male'],
                                            [ 'value'=>'female','label'=>'Female'],
                                            [ 'value'=>'others','label'=>'others']
-                                        ]" />
+                                ]" />
+
                                 <x-input type='date' attribute='birth_date' label="Birthdate" />
 
                                 <x-select attribute='status' label="Status" :options="
@@ -47,7 +48,24 @@
                                             [ 'value'=>'active','label'=>'Active'],
                                             [ 'value'=>'awol','label'=>'AWOL'],
                                             [ 'value'=>'inactive','label'=>'Inactive']
-                                        ]" />
+                                ]" />
+
+
+
+                                @php
+
+                                $departmentOptions = \App\Models\Department::all()->map(function ($item){
+
+
+                                return [
+                                'value'=>$item->id,
+                                'label'=>$item->name,
+                                ];
+
+                                });
+
+                                @endphp
+                                <x-select attribute='department_id' label="Department" :options="$departmentOptions" />
 
 
                             </div>
@@ -117,7 +135,7 @@ $('#close').click(function() {
 
 $(document).ready(function() {
     $('#submitEmployee').click(function(e) {
-        e.preventDefault(); // Prevent the default form submission
+        e.preventDefault(); 
 
         let formData = {
             first_name: $('input[name="first_name"]').val(),
@@ -126,18 +144,23 @@ $(document).ready(function() {
             gender: $('select[name="gender"]').val(),
             birth_date: $('input[name="birth_date"]').val(),
             status: $('select[name="status"]').val(),
-            _token: $('input[name="_token"]').val(), // CSRF token
+            _token: $('input[name="_token"]').val(),
         };
 
         $.ajax({
-            url: "{{ route('admin.store-employee') }}", // The route to your store function
+            url: "{{ route('admin.store-employee') }}",
             type: "POST",
             data: formData,
             success: function(response) {
                 if (response.success) {
-                    alert('Employee added successfully!');
-                    $('#addEmployeeForm')[0].reset(); // Reset the form
-                    $('#modalOverlay').removeClass('modal-open').hide(); // Close modal
+                    $('#addEmployeeForm')[0].reset();
+                    $('#modalOverlay').removeClass('modal-open').hide();
+
+                    $('#successMessageContainer').html(`
+                    <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+                        <span class="font-medium">${response.message}</span>
+                    </div>
+                    `);
                 } else {
                     alert('Failed to add employee. Please try again.');
                 }
@@ -145,12 +168,10 @@ $(document).ready(function() {
             error: function(xhr) {
                 let errors = xhr.responseJSON.errors;
 
-                // Clear previous error messages
-                $('.text-red-500').html(''); // Clears all existing error messages
+                $('.text-red-500').html('');
 
-                // Display error messages
                 $.each(errors, function(key, value) {
-                    $('#' + key).siblings('.text-red-500').html(value[0]); // Insert the error message next to the input field
+                    $('#' + key).siblings('.text-red-500').html(value[0]);
                 });
             }
 

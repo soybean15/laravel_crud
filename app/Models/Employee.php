@@ -21,6 +21,8 @@ class Employee extends Model
         'birth_date',
         'address',
         'gender',
+        'status',
+        'employee_code'
     ];
 
     public function user()

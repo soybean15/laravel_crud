@@ -6,7 +6,10 @@
     </x-slot>
 
     <div class="py-12">
+
+
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+            @include('components.alert')
             <div class="flex flex-col overflow-hidden bg-white shadow-sm item sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     {{ __("Employee $employee->employee_code") }}
@@ -44,6 +47,22 @@
                                     [ 'value'=>'awol','label'=>'AWOL'],
                                     [ 'value'=>'inactive','label'=>'Inactive']
                                 ]" />
+
+                            @php
+
+                            $departmentOptions = \App\Models\Department::all()->map(function ($item){
+
+
+                                return [
+                                    'value'=>$item->id,
+                                    'label'=>$item->name,
+                            ];
+
+                            });
+
+                            @endphp
+                            <x-select  value='{{ $employee->department_id }}' attribute='department_id' label="Department" :options="$departmentOptions" />
+
 
 
                         </div>
