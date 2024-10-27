@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enum\EmployeeStatusEnum;
 use App\Enum\RoleEnum;
 use App\Helpers\IdGenerator;
 use App\Models\Department;
@@ -55,7 +56,7 @@ class UserFactory extends Factory
                     'birth_date'=>fake()->dateTimeBetween('-40 years', '-18 years'),
                     'address'=>fake()->address(),
                     'gender' => fake()->randomElement(['male', 'female', 'other']),
-                    'status'=>fake()->randomElement(RoleEnum::cases())->value,
+                    'status'=>fake()->randomElement(EmployeeStatusEnum::cases())->value,
 
                 ]
             );
